@@ -84,6 +84,3 @@ Then visit: [http://localhost:5000](http://localhost:5000)
 - Use real telemetry for wind input
 - Extend dashboard to show NDVI heatmaps
 - Deploy FSM to Jetson companion board
-
-
-[Email / GitHub Profile]
