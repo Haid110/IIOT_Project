@@ -1,0 +1,4 @@
+mavsdk==1.0.0
+opencv-python
+flask
+numpy

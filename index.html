@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Crop Surveyor Dashboard</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <style>
+        #map { height: 400px; }
+        body { font-family: Arial, sans-serif; }
+    </style>
+</head>
+<body>
+    <h1>Field-Edge Crop Surveyor Dashboard</h1>
+    <p>Current State: <span id="state">Loading...</span></p>
+    <p>NDVI Value: <span id="ndvi">0.00</span></p>
+    <div id="map"></div>
+
+    <script>
+        var map = L.map('map').setView([51.505, -0.09], 18);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Dummy marker for drone position
+        var marker = L.marker([51.505, -0.09]).addTo(map);
+
+        function updateStatus() {
+            fetch('/api/state').then(res => res.json()).then(data => {
+                document.getElementById('state').textContent = data.state;
+                document.getElementById('ndvi').textContent = data.ndvi_value;
+            });
+        }
+
+        setInterval(updateStatus, 3000);
+    </script>
+</body>
+</html>
